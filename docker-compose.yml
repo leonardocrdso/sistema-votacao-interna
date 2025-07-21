@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: voting_postgres
+    environment:
+      POSTGRES_DB: voting_system
+      POSTGRES_USER: voting_user
+      POSTGRES_PASSWORD: voting_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - voting_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: voting_backend
+    environment:
+      DATABASE_URL: postgresql://voting_user:voting_password@postgres:5432/voting_system
+      PORT: 3001
+      ADMIN_TOKEN: eAyL5frRilDo5JivmkrT0CAQ2d4AfGyIXnzV47YRZm2a6GbAnM
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    networks:
+      - voting_network
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: voting_frontend
+    environment:
+      VITE_API_URL: http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - voting_network
+
+volumes:
+  postgres_data:
+
+networks:
+  voting_network:
+    driver: bridge

@@ -1,0 +1,65 @@
+{
+  "name": "sistema-votacao-interna",
+  "version": "1.0.0",
+  "description": "Sistema completo de votação interna para colaboradores",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "docker-compose up",
+    "start:prod": "docker-compose -f docker-compose.prod.yml up",
+    "stop": "docker-compose down",
+    "restart": "npm run stop && npm run start",
+    "logs": "docker-compose logs -f",
+    "logs:backend": "docker-compose logs -f backend",
+    "logs:frontend": "docker-compose logs -f frontend",
+    "logs:db": "docker-compose logs -f postgres",
+    "db:reset": "cd backend && npm run prisma:reset",
+    "db:seed": "cd backend && npm run prisma:seed",
+    "db:migrate": "cd backend && npm run prisma:migrate",
+    "db:studio": "cd backend && npx prisma studio",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "clean": "docker-compose down -v --remove-orphans && docker system prune -f",
+    "setup": "npm run install:all && npm run db:migrate && npm run db:seed",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "health": "curl -f http://localhost:3001/health && curl -f http://localhost:3000/health"
+  },
+  "keywords": [
+    "voting",
+    "internal",
+    "system",
+    "react",
+    "nodejs",
+    "postgresql"
+  ],
+  "author": "Sistema de Votação",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prisma": "^6.12.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empresa/sistema-votacao-interna.git"
+  },
+  "bugs": {
+    "url": "https://github.com/empresa/sistema-votacao-interna/issues"
+  },
+  "homepage": "https://github.com/empresa/sistema-votacao-interna#readme",
+  "dependencies": {
+    "@prisma/client": "^6.12.0"
+  }
+}

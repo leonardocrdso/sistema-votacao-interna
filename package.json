@@ -1,0 +1,19 @@
+{
+  "name": "sistema-votacao-interna",
+  "version": "1.0.0",
+  "description": "Sistema completo de votação interna para colaboradores",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "start": "docker-compose up",
+    "stop": "docker-compose down",
+    "logs": "docker-compose logs -f",
+    "setup": "chmod +x scripts/setup.sh && ./scripts/setup.sh"
+  },
+  "keywords": ["voting", "internal", "system"],
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Sistema de votação interna seguro e transparente para colaboradores" />
+    <meta name="keywords" content="votação, interna, colaboradores, sistema, seguro" />
+    <meta name="author" content="Sistema de Votação" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Sistema de Votação Interna" />
+    <meta property="og:description" content="Plataforma segura para votação entre colaboradores" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <!-- X-Frame-Options removido - deve ser definido apenas via HTTP headers -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <!-- Preconnect para melhor performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Título da página -->
+    <title>Sistema de Votação Interna</title>
+    
+    <!-- Estilos inline críticos para evitar FOUC -->
+    <style>
+      /* Loading inicial */
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 9999;
+      }
+      
+      .loading-spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #0d6efd;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .loading-text {
+        color: #6c757d;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 16px;
+      }
+      
+      /* Esconder loading quando React carregar */
+      .loaded #loading {
+        display: none;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- Loading inicial -->
+    <div id="loading">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Carregando Sistema de Votação...</div>
+    </div>
+    
+    <!-- Container principal do React -->
+    <div id="root"></div>
+    
+    <!-- Script para remover loading -->
+    <script>
+      // Remover loading quando o DOM estiver pronto
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          document.body.classList.add('loaded');
+        }, 100);
+      });
+      
+      // Fallback para remover loading após 5 segundos
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 5000);
+    </script>
+    
+    <!-- Script principal do Vite -->
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Noscript fallback -->
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1>JavaScript Necessário</h1>
+        <p>Este sistema requer JavaScript para funcionar corretamente.</p>
+        <p>Por favor, habilite o JavaScript em seu navegador e recarregue a página.</p>
+      </div>
+    </noscript>
+  </body>
+</html>
